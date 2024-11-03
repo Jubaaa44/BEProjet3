@@ -1,14 +1,12 @@
-package message;
+package com.projet3.entity;
 
 import jakarta.persistence.*;
-import rental.RentalModel;
-import user.UserModel;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "messages")
-public class MessageModel {
+public class MessageEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +24,12 @@ public class MessageModel {
     // Relation avec l'entité Rental
     @ManyToOne
     @JoinColumn(name = "rental_id")
-    private RentalModel rental;
+    private RentalEntity rental;
 
     // Relation avec l'entité User
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserModel user;
+    private UserEntity user;
 
     // Getters et Setters
 	public Integer getId() {
@@ -66,19 +64,19 @@ public class MessageModel {
 		this.updatedAt = updatedAt;
 	}
 
-	public RentalModel getRental() {
+	public RentalEntity getRental() {
 		return rental;
 	}
 
-	public void setRental(RentalModel rental) {
+	public void setRental(RentalEntity rental) {
 		this.rental = rental;
 	}
 
-	public UserModel getUser() {
+	public UserEntity getUser() {
 		return user;
 	}
 
-	public void setUser(UserModel user) {
+	public void setUser(UserEntity user) {
 		this.user = user;
 	}
 

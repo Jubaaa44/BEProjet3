@@ -1,15 +1,13 @@
-package rental;
+package com.projet3.entity;
 
 import jakarta.persistence.*;
-import message.MessageModel;
-import user.UserModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "rentals")
-public class RentalModel {
+public class RentalEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,11 +34,11 @@ public class RentalModel {
     // Relation avec l'entité User (propriétaire)
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
-    private UserModel owner;
+    private UserEntity owner;
 
     // Relation avec les messages
     @OneToMany(mappedBy = "rental")
-    private List<MessageModel> messages;
+    private List<MessageEntity> messages;
 
     // Getters et Setters
 	public Integer getId() {
@@ -107,19 +105,19 @@ public class RentalModel {
 		this.updatedAt = updatedAt;
 	}
 
-	public UserModel getOwner() {
+	public UserEntity getOwner() {
 		return owner;
 	}
 
-	public void setOwner(UserModel owner) {
+	public void setOwner(UserEntity owner) {
 		this.owner = owner;
 	}
 
-	public List<MessageModel> getMessages() {
+	public List<MessageEntity> getMessages() {
 		return messages;
 	}
 
-	public void setMessages(List<MessageModel> messages) {
+	public void setMessages(List<MessageEntity> messages) {
 		this.messages = messages;
 	}
 

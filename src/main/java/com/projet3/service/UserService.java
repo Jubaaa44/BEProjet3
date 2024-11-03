@@ -1,11 +1,10 @@
-package service;
+package com.projet3.service;
 
-import user.*;
-import user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.projet3.entity.UserEntity;
+import com.projet3.repository.UserRepository;
+
 import java.util.Optional;
 
 @Service
@@ -13,14 +12,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
     
  // Méthode pour obtenir un utilisateur par son ID
-    public UserModel getUserById(Long id) {
-        Optional<UserModel> userOptional = userRepository.findById(id);
+    public UserEntity getUserById(Long id) {
+        Optional<UserEntity> userOptional = userRepository.findById(id);
         return userOptional.orElse(null); // Renvoie l'utilisateur si trouvé, sinon null
     }
 }

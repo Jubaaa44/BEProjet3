@@ -1,14 +1,10 @@
 package com.projet3.dto;
 
-import java.time.LocalDateTime;
-
 public class UserDTO {
     
     private Integer id;
     private String email;
     private String name;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     // Getters et Setters
     public Integer getId() {
@@ -35,19 +31,4 @@ public class UserDTO {
         this.name = name;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }

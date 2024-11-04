@@ -14,8 +14,6 @@ public class UserMapper {
         dto.setId(entity.getId());
         dto.setEmail(entity.getEmail());
         dto.setName(entity.getName());
-        dto.setCreatedAt(entity.getCreatedAt());
-        dto.setUpdatedAt(entity.getUpdatedAt());
         
         return dto;
     }
@@ -29,8 +27,6 @@ public class UserMapper {
         entity.setId(dto.getId());
         entity.setEmail(dto.getEmail());
         entity.setName(dto.getName());
-        entity.setCreatedAt(dto.getCreatedAt());
-        entity.setUpdatedAt(dto.getUpdatedAt());
 
         return entity;
     }

@@ -5,8 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.projet3.dto.UserDTO;
-import com.projet3.entity.UserEntity;
-import com.projet3.mapper.UserMapper;
 import com.projet3.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "User Controller", description = "Gestion des utilisateurs")
 public class UserController {
 
@@ -29,11 +28,10 @@ public class UserController {
                description = "Retourne les informations de l'utilisateur sous forme de DTO en fonction de l'ID fourni.")
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(
-            @Parameter(description = "ID de l'utilisateur", example = "1") @PathVariable Long id) {
-        UserEntity user = userService.getUserById(id);
+            @Parameter(description = "ID de l'utilisateur", example = "1") @PathVariable Integer id) {
+        UserDTO user = userService.getUserById(id); // Supposons que cette méthode retourne déjà un UserDTO
         if (user != null) {
-            UserDTO userDTO = UserMapper.toDTO(user); // Conversion de l'entité en DTO
-            return ResponseEntity.ok(userDTO); // Renvoie l'utilisateur en format DTO
+            return ResponseEntity.ok(user); // Renvoie l'utilisateur en format DTO
         } else {
             return ResponseEntity.notFound().build(); // Renvoie 404 si non trouvé
         }

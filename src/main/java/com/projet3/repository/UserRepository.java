@@ -9,4 +9,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
+	// Méthode pour rechercher par id
+	UserEntity findById(int id);
+	
+    // Méthode pour trouver un utilisateur par son email
+    UserEntity findByEmail(String email);
+    
+    // Méthode pour rechercher par nom
+    UserEntity findByName(String name);
+    
 }

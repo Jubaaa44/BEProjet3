@@ -2,10 +2,10 @@ package com.projet3.service;
 
 import org.springframework.stereotype.Service;
 
+import com.projet3.dto.UserDTO;
 import com.projet3.entity.UserEntity;
+import com.projet3.mapper.UserMapper;
 import com.projet3.repository.UserRepository;
-
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -16,9 +16,27 @@ public class UserService {
         this.userRepository = userRepository;
     }
     
- // Méthode pour obtenir un utilisateur par son ID
-    public UserEntity getUserById(Long id) {
-        Optional<UserEntity> userOptional = userRepository.findById(id);
-        return userOptional.orElse(null); // Renvoie l'utilisateur si trouvé, sinon null
+    // Méthode pour trouver un utilisateur par son id
+    public UserDTO getUserById(int id) {
+    	UserEntity userEntity = userRepository.findById(id);
+    	return UserMapper.toDTO(userEntity);
+    	
+    }
+    
+    // Méthode pour trouver un utilisateur par son email
+    public UserDTO getUserByEmail(String email) {
+        UserEntity userEntity = userRepository.findByEmail(email);
+        return UserMapper.toDTO(userEntity);
+    }
+    
+    // Méthode pour trouver un utilisateur par son nom
+    public UserDTO getUserByName(String name) {
+        UserEntity userEntity = userRepository.findByName(name);
+        return UserMapper.toDTO(userEntity);
+    }
+    
+    public UserEntity createUser(UserDTO userDTO) {
+        UserEntity userEntity = UserMapper.toEntity(userDTO);  // Convertit le DTO en entité
+        return userRepository.save(userEntity);  // L'ID est généré automatiquement par la base de données
     }
 }

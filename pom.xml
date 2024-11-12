@@ -26,11 +26,39 @@
 
     <!-- Dependencies -->
 	<dependencies>
+		<dependency>
+	        <groupId>javax.xml.bind</groupId>
+	        <artifactId>jaxb-api</artifactId>
+	        <version>2.3.1</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.glassfish.jaxb</groupId>
+	        <artifactId>jaxb-runtime</artifactId>
+	        <version>2.3.1</version>
+	    </dependency>
+			<dependency>
+			    <groupId>io.jsonwebtoken</groupId>
+			    <artifactId>jjwt</artifactId>
+			    <version>0.9.1</version>
+			</dependency>
 		   <dependency>
 		      <groupId>org.springdoc</groupId>
 		      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 		      <version>2.6.0</version>
 		   </dependency>
+    <!-- SLF4J Logger -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>2.0.0</version>
+    </dependency>
+
+    <!-- Logback (implémentation de SLF4J) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-logging</artifactId>
+    </dependency>
+
 
         <!-- Spring Boot starters -->
         <dependency>

@@ -11,10 +11,9 @@ public class UserMapper {
         }
 
         UserDTO dto = new UserDTO();
-        dto.setId(entity.getId());
         dto.setEmail(entity.getEmail());
         dto.setName(entity.getName());
-        
+
         return dto;
     }
 
@@ -24,9 +23,10 @@ public class UserMapper {
         }
 
         UserEntity entity = new UserEntity();
-        entity.setId(dto.getId());
+        // Ne pas définir l'ID ici, car il sera généré automatiquement lors de la sauvegarde
         entity.setEmail(dto.getEmail());
         entity.setName(dto.getName());
+        entity.setPassword(dto.getPassword());  // Si tu as un champ mot de passe
 
         return entity;
     }

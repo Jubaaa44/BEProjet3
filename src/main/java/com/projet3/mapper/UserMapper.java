@@ -26,7 +26,7 @@ public class UserMapper {
         // Ne pas définir l'ID ici, car il sera généré automatiquement lors de la sauvegarde
         entity.setEmail(dto.getEmail());
         entity.setName(dto.getName());
-        entity.setPassword(dto.getPassword());  // Si tu as un champ mot de passe
+
 
         return entity;
     }

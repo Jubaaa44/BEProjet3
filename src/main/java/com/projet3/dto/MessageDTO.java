@@ -1,19 +1,9 @@
 package com.projet3.dto;
 
 public class MessageDTO {
-    private Integer id;
     private String message;
-    private Integer rentalId;
-    private Integer userId;
-
-    // Getters et Setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Integer rental_id;
+    private Integer user_id;
 
     public String getMessage() {
         return message;
@@ -24,19 +14,18 @@ public class MessageDTO {
     }
 
     public Integer getRentalId() {
-        return rentalId;
+        return rental_id;
     }
 
     public void setRentalId(Integer rentalId) {
-        this.rentalId = rentalId;
+        this.rental_id = rentalId;
     }
 
     public Integer getUserId() {
-        return userId;
+        return user_id;
     }
 
     public void setUserId(Integer userId) {
-        this.userId = userId;
+        this.user_id = userId;
     }
 }
-

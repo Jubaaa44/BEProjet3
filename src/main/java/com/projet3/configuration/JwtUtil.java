@@ -3,6 +3,8 @@ package com.projet3.configuration;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -10,8 +12,9 @@ import java.util.function.Function;
 
 @Service
 public class JwtUtil {
-
-    private final String SECRET_KEY = "QWxhZGRpbjpPcGVuU2VzYW1lIQ==";
+	
+	@Value("${jwt.key}")
+    private String secret_key;
 
     private final long EXPIRATION_TIME = 86400000; // 1 jour en millisecondes
 
@@ -21,7 +24,7 @@ public class JwtUtil {
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS256, secret_key)
                 .compact();
     }
 
@@ -38,7 +41,7 @@ public class JwtUtil {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(SECRET_KEY)
+                .setSigningKey(secret_key)
                 .parseClaimsJws(token)
                 .getBody();
     }

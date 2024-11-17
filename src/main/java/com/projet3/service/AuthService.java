@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.projet3.configuration.JwtUtil;
+import com.projet3.dto.LoginDTO;
+import com.projet3.dto.RegisterDTO;
 import com.projet3.dto.UserDTO;
 import com.projet3.entity.UserEntity;
 import com.projet3.repository.UserRepository;
@@ -33,7 +35,7 @@ public class AuthService {
     }
 
     // Méthode pour enregistrer un nouvel utilisateur
-    public ResponseEntity<?> register(UserDTO userDTO) {
+    public ResponseEntity<?> register(RegisterDTO userDTO) {
         logger.info("Tentative d'enregistrement de l'utilisateur: {}", userDTO.getEmail());
 
         // Vérification si l'email existe déjà
@@ -52,7 +54,7 @@ public class AuthService {
     }
 
     // Méthode pour se connecter
-    public ResponseEntity<?> login(UserDTO userDTO) {
+    public ResponseEntity<?> login(LoginDTO userDTO) {
         logger.info("Début de la tentative de connexion pour l'utilisateur: {}", userDTO.getEmail());
 
         UserEntity user = userRepository.findByEmail(userDTO.getEmail());

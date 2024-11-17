@@ -4,6 +4,8 @@ import org.springframework.stereotype.Repository;
 
 import com.projet3.entity.UserEntity;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository

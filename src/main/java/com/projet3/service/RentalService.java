@@ -1,7 +1,10 @@
 package com.projet3.service;
 
 import com.projet3.entity.RentalEntity;
+import com.projet3.entity.UserEntity;
 import com.projet3.repository.RentalRepository;
+import com.projet3.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,9 @@ public class RentalService {
 
     @Autowired
     private RentalRepository rentalRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     // Récupérer toutes les locations
     public List<RentalEntity> getAllRentals() {

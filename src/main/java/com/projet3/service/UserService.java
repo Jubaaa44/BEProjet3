@@ -20,13 +20,12 @@ public class UserService {
     public UserDTO getUserById(int id) {
     	UserEntity userEntity = userRepository.findById(id);
     	return UserMapper.toDTO(userEntity);
-    	
     }
     
     // Méthode pour trouver un utilisateur par son email
-    public UserDTO getUserByEmail(String email) {
+    public UserEntity getUserByEmail(String email) {
         UserEntity userEntity = userRepository.findByEmail(email);
-        return UserMapper.toDTO(userEntity);
+        return userEntity;
     }
     
     // Méthode pour trouver un utilisateur par son nom
@@ -36,7 +35,8 @@ public class UserService {
     }
     
     public UserEntity createUser(UserDTO userDTO) {
-        UserEntity userEntity = UserMapper.toEntity(userDTO);  // Convertit le DTO en entité
-        return userRepository.save(userEntity);  // L'ID est généré automatiquement par la base de données
+        UserEntity userEntity = UserMapper.toEntity(userDTO);
+        return userRepository.save(userEntity);
     }
+    
 }

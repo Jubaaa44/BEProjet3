@@ -6,7 +6,6 @@ public class UserDTO {
     
     private String email;
     private String name;
-    private String password;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
 
@@ -28,14 +27,6 @@ public class UserDTO {
     public void setName(String name) {
         this.name = name;
     }
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public LocalDateTime getCreated_at() {
 		return created_at;

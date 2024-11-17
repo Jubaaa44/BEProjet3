@@ -2,6 +2,7 @@ package com.projet3.mapper;
 
 import com.projet3.dto.RentalDTO;
 import com.projet3.entity.RentalEntity;
+import com.projet3.entity.UserEntity;
 
 public class RentalMapper {
 
@@ -44,8 +45,25 @@ public class RentalMapper {
         rentalEntity.setPicture(rentalDTO.getPicture());
         rentalEntity.setDescription(rentalDTO.getDescription());
 
-        // Note : Les relations owner et messages ne sont pas mappées ici
+     // Note : Pour l'owner et les messages, il faudrait récupérer les entités liées en base
+        if (rentalDTO.getOwnerId() != null) {
+            UserEntity owner = new UserEntity();
+            owner.setId(rentalDTO.getOwnerId());
+            rentalEntity.setOwner(owner);
+        }
 
+        /*
+        if (rentalDTO.getMessages() != null) {
+            rentalEntity.setMessages(
+                rentalDTO.getMessages().stream()
+                    .map(content -> {
+                        MessageEntity message = new MessageEntity();
+                        message.setContent(content);
+                        return message;
+                    })
+                    .collect(Collectors.toList())
+            );
+            */
         return rentalEntity;
     }
 }

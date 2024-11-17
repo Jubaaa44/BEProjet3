@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<MessageEntity, Integer> {
     List<MessageEntity> findByUserId(Integer userId); // Méthode pour trouver des messages par ID utilisateur
+    
+    @Override
+    MessageEntity save(MessageEntity message);
 }

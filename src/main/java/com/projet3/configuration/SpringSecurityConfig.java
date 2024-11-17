@@ -1,5 +1,7 @@
 package com.projet3.configuration;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 @Configuration
@@ -22,22 +27,40 @@ public class SpringSecurityConfig {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                // Autoriser l'accès aux routes d'authentification sans authentification JWT
-                .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
-                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                // Les autres routes nécessitent une authentification
-                .requestMatchers("/api/auth/me").authenticated()
-            )
-            // Ajouter le filtre JWT avant le filtre de gestion de l'authentification classique
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-            .csrf(csrf -> csrf.disable()); // Désactiver CSRF pour les API
+    @Configuration
+    @EnableWebSecurity
+    public class SecurityConfig {
 
-        return http.build();
+        @Autowired
+        private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+            http
+                .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
+                    .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/uploads/**").permitAll()
+                    .requestMatchers("/api/auth/me", "/api/rentals/**", "api/messages/**").authenticated()
+                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .csrf(csrf -> csrf.disable())
+                .cors().configurationSource(corsConfigurationSource()); // Ajout de la configuration CORS
+
+            return http.build();
+        }
+
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+            CorsConfiguration configuration = new CorsConfiguration();
+            configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // Frontend Angular
+            configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+            configuration.setAllowedHeaders(Arrays.asList("*"));
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/api/**", configuration);
+            return source;
+        }
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

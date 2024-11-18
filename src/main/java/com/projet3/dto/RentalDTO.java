@@ -1,7 +1,5 @@
 package com.projet3.dto;
 
-import java.time.LocalDateTime;
-
 public class RentalDTO {
 
     private Integer id;
@@ -10,8 +8,8 @@ public class RentalDTO {
     private Double price;
     private String picture;
     private String description;
-    private Integer ownerId; // Utilisation de l'ID du propriétaire pour simplifier
-    private Integer messageCount; // Nombre de messages associés pour simplifier
+    private Integer ownerId;
+    private Integer messageCount;
 
     // Constructeurs
     public RentalDTO() {

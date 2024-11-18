@@ -4,10 +4,23 @@ import com.projet3.dto.RentalDTO;
 import com.projet3.entity.RentalEntity;
 import com.projet3.entity.UserEntity;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+
 public class RentalMapper {
 
-    // Convertit un RentalEntity en RentalDTO
-    public static RentalDTO toDTO(RentalEntity rentalEntity) {
+    /**
+     * Convertit un objet RentalEntity en RentalDTO.
+     * 
+     * @param rentalEntity L'entité RentalEntity à convertir.
+     * @return Le RentalDTO résultant de la conversion, ou null si l'entité est null.
+     */
+    @Operation(summary = "Convertir un RentalEntity en RentalDTO", 
+               description = "Cette méthode mappe un RentalEntity en un RentalDTO, extrayant les informations "
+                            + "nécessaires comme le nom, la surface, le prix, l'image, et le nombre de messages associés.")
+    public static RentalDTO toDTO(
+        @Parameter(description = "L'entité RentalEntity à convertir.", required = true) RentalEntity rentalEntity) {
+        
         if (rentalEntity == null) {
             return null;
         }
@@ -20,7 +33,7 @@ public class RentalMapper {
         rentalDTO.setPicture(rentalEntity.getPicture());
         rentalDTO.setDescription(rentalEntity.getDescription());
 
-        // Mapping des relations simplifiées
+        // Mapping des relations simplifiées (propriétaire et messages)
         if (rentalEntity.getOwner() != null) {
             rentalDTO.setOwnerId(rentalEntity.getOwner().getId());
         }
@@ -31,8 +44,18 @@ public class RentalMapper {
         return rentalDTO;
     }
 
-    // Convertit un RentalDTO en RentalEntity
-    public static RentalEntity toEntity(RentalDTO rentalDTO) {
+    /**
+     * Convertit un RentalDTO en RentalEntity.
+     * 
+     * @param rentalDTO Le RentalDTO à convertir.
+     * @return L'entité RentalEntity résultante de la conversion, ou null si le DTO est null.
+     */
+    @Operation(summary = "Convertir un RentalDTO en RentalEntity", 
+               description = "Cette méthode mappe un RentalDTO en une entité RentalEntity, "
+                            + "en associant les IDs des entités liées, comme le propriétaire.")
+    public static RentalEntity toEntity(
+        @Parameter(description = "Le RentalDTO à convertir.", required = true) RentalDTO rentalDTO) {
+        
         if (rentalDTO == null) {
             return null;
         }
@@ -45,25 +68,13 @@ public class RentalMapper {
         rentalEntity.setPicture(rentalDTO.getPicture());
         rentalEntity.setDescription(rentalDTO.getDescription());
 
-     // Note : Pour l'owner et les messages, il faudrait récupérer les entités liées en base
+        // Note : Pour l'owner et les messages, il faudrait récupérer les entités liées en base
         if (rentalDTO.getOwnerId() != null) {
             UserEntity owner = new UserEntity();
             owner.setId(rentalDTO.getOwnerId());
             rentalEntity.setOwner(owner);
         }
 
-        /*
-        if (rentalDTO.getMessages() != null) {
-            rentalEntity.setMessages(
-                rentalDTO.getMessages().stream()
-                    .map(content -> {
-                        MessageEntity message = new MessageEntity();
-                        message.setContent(content);
-                        return message;
-                    })
-                    .collect(Collectors.toList())
-            );
-            */
         return rentalEntity;
     }
 }

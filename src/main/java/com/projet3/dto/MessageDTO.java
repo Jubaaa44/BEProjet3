@@ -5,6 +5,7 @@ public class MessageDTO {
     private Integer rental_id;
     private Integer user_id;
 
+    // Getters et Setters
     public String getMessage() {
         return message;
     }

@@ -12,7 +12,9 @@ import com.projet3.dto.RegisterDTO;
 import com.projet3.dto.UserDTO;
 import com.projet3.entity.UserEntity;
 import com.projet3.repository.UserRepository;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.Map;
 
 @Service
@@ -35,6 +37,11 @@ public class AuthService {
     }
 
     // Méthode pour enregistrer un nouvel utilisateur
+    @Operation(summary = "Enregistrer un nouvel utilisateur")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Utilisateur enregistré avec succès"),
+        @ApiResponse(responseCode = "400", description = "Email déjà pris")
+    })
     public ResponseEntity<?> register(RegisterDTO userDTO) {
         logger.info("Tentative d'enregistrement de l'utilisateur: {}", userDTO.getEmail());
 
@@ -54,6 +61,11 @@ public class AuthService {
     }
 
     // Méthode pour se connecter
+    @Operation(summary = "Connexion d'un utilisateur")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Connexion réussie"),
+        @ApiResponse(responseCode = "401", description = "Mot de passe incorrect ou utilisateur non trouvé")
+    })
     public ResponseEntity<?> login(LoginDTO userDTO) {
         logger.info("Début de la tentative de connexion pour l'utilisateur: {}", userDTO.getEmail());
 
@@ -77,8 +89,12 @@ public class AuthService {
         }
     }
 
-
     // Nouvelle méthode pour récupérer les détails de l'utilisateur authentifié par email
+    @Operation(summary = "Récupérer les détails de l'utilisateur par email")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Détails de l'utilisateur récupérés avec succès"),
+        @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
+    })
     public UserDTO getUserDetailsByEmail(String email) {
         logger.info("Récupération des détails de l'utilisateur pour l'email: {}", email);
 
@@ -103,18 +119,16 @@ public class AuthService {
     public static class AuthSuccess {
         private String token;
 
-		public AuthSuccess(String token) {
-			this.token = token;
-		}
+        public AuthSuccess(String token) {
+            this.token = token;
+        }
 
-		public String getToken() {
-			return token;
-		}
+        public String getToken() {
+            return token;
+        }
 
-		public void setToken(String token) {
-			this.token = token;
-		}
-
-
+        public void setToken(String token) {
+            this.token = token;
+        }
     }
 }

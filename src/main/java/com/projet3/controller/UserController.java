@@ -29,11 +29,15 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(
             @Parameter(description = "ID de l'utilisateur", example = "1") @PathVariable Integer id) {
-        UserDTO user = userService.getUserById(id); // Supposons que cette méthode retourne déjà un UserDTO
+        // On suppose que `getUserById` retourne un objet UserDTO ou null si non trouvé
+        UserDTO user = userService.getUserById(id);
+        
+        // Si l'utilisateur existe, on renvoie une réponse 200 avec les données
         if (user != null) {
-            return ResponseEntity.ok(user); // Renvoie l'utilisateur en format DTO
+            return ResponseEntity.ok(user); 
         } else {
-            return ResponseEntity.notFound().build(); // Renvoie 404 si non trouvé
+            // Si l'utilisateur n'est pas trouvé, on renvoie une réponse 404
+            return ResponseEntity.notFound().build(); 
         }
     }
 }
